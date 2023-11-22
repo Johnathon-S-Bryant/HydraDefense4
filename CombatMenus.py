@@ -4,16 +4,17 @@ from CombatEntities import *
 class Menu:
     _header = "default-menu-header"
     _selectableItems = []
+    _defaultColor = Fore.WHITE
     def __init__(self, header, selectableItems):
         self._header = header
         self._selectableItems = selectableItems
-    def Display(self, outColor):
-        print(outColor + self._header)
+    def Display(self, headerColor):
+        print(headerColor + self._header)
         print(Fore.WHITE + '-------------------')
         selectableItems = self._selectableItems
         for z in range(1, len(selectableItems)+1):
-            print(f'{outColor}{z}|{selectableItems[z-1].MenuLine()}')
-        print(Fore.WHITE)
+            print(f'{z}|{selectableItems[z-1].MenuLine()}{self._defaultColor}')
+        print(Fore.WHITE,end='')
     def Read(self):
         validInput = False
         lBound = 1
