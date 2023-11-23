@@ -4,7 +4,7 @@ from CombatMenus import *
 from CombatActions import *
 import random
 
-head1:Head = Head('Head 1', 17, 10, 1)
+head1:PlayerHead = PlayerHead('Head 1', 17, 10, 1)
 #head2:Head = Head('Head 2', 17, 10, 1)
 heads:list=[head1]#, head2]
 player:Player=Player(153,heads)
