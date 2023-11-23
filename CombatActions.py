@@ -1,6 +1,20 @@
+from CombatEntities import *
+
 def Attack(attacker, defender):
-    delta = attacker._ATK - defender._DEF
-    if delta < 0:
-        delta = 0
-    print(f'{attacker._name} attacks {defender._name} for {delta}!')
-    defender._hp -= delta
+    attackerATK = attacker._ATK
+    print(f'{Fore.WHITE} {attacker._name} attacks {defender._name} for {attackerATK}')
+    defender.TakeAttack(attackerATK)
+
+def DiscardKilledEntities(killables):
+    for k in killables:
+        if k._hp <= 0:
+            killables.remove(k)
+
+def RegenerateHeads(heads):
+    for h in heads:
+        if h._hp <= 0:
+            newHead1:Head = Head(f'{h._name}-1', h._maxHP, h._ATK, h._DEF)
+            newHead2:Head = Head(f'{h._name}-2', h._maxHP, h._ATK, h._DEF)
+            heads.remove(h)
+            heads.append(newHead1)
+            heads.append(newHead2)

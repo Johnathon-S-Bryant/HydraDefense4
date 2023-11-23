@@ -1,31 +1,47 @@
 from colorama import Fore
 from CombatEntities import *
 
+class MenuItem:
+    _enabled = True
+    def __init__(self, val):
+        self._val = val
+    def MenuLine(self):
+        return self._val.MenuLine()
+
 class Menu:
     _header = "default-menu-header"
     _selectableItems = []
-    _defaultColor = Fore.WHITE
-    def __init__(self, header, selectableItems):
+    _color = Fore.MAGENTA
+    def __init__(self, header, selectableItems, color):
         self._header = header
         self._selectableItems = selectableItems
-    def Display(self, headerColor):
-        print(headerColor + self._header)
+        self._color = color
+    def Display(self):
+        print(self._color + self._header)
         print(Fore.WHITE + '-------------------')
         selectableItems = self._selectableItems
         for z in range(1, len(selectableItems)+1):
-            print(f'{z}|{selectableItems[z-1].MenuLine()}{self._defaultColor}')
-        print(Fore.WHITE,end='')
-    def Read(self):
+            currentItem = selectableItems[z-1]
+            currentColor = self._color if currentItem._enabled else Fore.WHITE
+            print(f'{Fore.WHITE}{z}|{currentColor}{currentItem.MenuLine()}{Fore.WHITE}')
+    def ReadDisableSelection(self):
         validInput = False
         lBound = 1
-        selectableItems = self._selectableItems
-        uBound= len(selectableItems)
+        uBound= len(self._selectableItems)
+        alreadySelectedItems = list(filter(lambda si: not si._enabled, self._selectableItems))
         while not validInput:
             i = input()
             intI = int(i)
             if intI >= lBound and intI <= uBound:
-                validInput = True
-        return selectableItems[intI-1]
+                currentSelectable = self._selectableItems[intI-1]
+                if currentSelectable not in alreadySelectedItems:
+                    validInput = True
+        currentSelectable._enabled = False
+        return currentSelectable
+    def IsExhausted(self):
+        return all([not si._enabled for si in self._selectableItems]) 
+
+        
 
 
 """def DisplaySelectHeadMenu(player:Player):
