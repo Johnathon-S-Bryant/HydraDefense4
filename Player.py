@@ -1,19 +1,25 @@
-from BodyPartType import *
+from CombatEntityType import *
+from PlayerHead import *
 
 class Player:
+    _name = 'default-player-name'
     _poolHP = 134
-    _bodyParts = []
+    _bodyParts = {}
+    _combatEntityType = CombatEntityType.PLAYER
     def __init__(self, poolHP, bodyParts):
         self._poolHP = poolHP
         self._bodyParts = bodyParts
-    def LRDisplayLines(self):
+    def FullLRDisplayLines(self):
         ret = []
-        for h in self._bodyParts:
-            ret.extend(h.LRDisplayLines())
+        for bp in self._bodyParts.values():
+            ret.extend(bp.LRDisplayLines())
         return ret
-    def ForceBodyPartTakeAttack(self, bodyPartID, incomingATK):
-        self._bodyParts[bodyPartID].ForceBodyPartTakeAttack(player, incomingATK)
-        """if bodyPartType == BodyPartType.BODY:
-        if bodyPartType == BodyPartType.HEAD:
-        if bodyPartType == BodyPartType.LEG:
-        if bodyPartType == BodyPartType.TAIL:"""
+    def HeadCombatDisplayLines(self):
+        ret = []
+        for bp in self._bodyParts.values():
+            if type(bp) is PlayerHead:
+                ret.extend(bp.LRDisplayLines())
+        return ret
+
+    def ForceBodyPartTakeAttack(self, bodyPartID:int, attackerATK:int):
+        self._bodyParts.get(bodyPartID).TakeAttack(self, attackerATK)

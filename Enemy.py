@@ -1,4 +1,5 @@
 from colorama import Fore
+from CombatEntityType import *
 
 class Enemy:
     _name = 'default-enemy-name-string'
@@ -7,6 +8,7 @@ class Enemy:
     _ATK = -1
     _DEF = -1
     _menuLineColor = Fore.MAGENTA
+    _combatEntityType = CombatEntityType.ENEMY
     def __init__(self, name,  maxHP, ATK, DEF, menuLineColor):
         self._name = name
         self._hp = maxHP

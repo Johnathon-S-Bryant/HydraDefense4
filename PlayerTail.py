@@ -6,9 +6,18 @@ class PlayerTail:
         self._maxHP = HP
         self._hp = HP
         self._DEF = DEF
+    def LRDisplayLines(self):
+        ret = []
+        ret.append(f'TAIL')
+        ret.append(f'HP: {self._hp} / {self._maxHP}')
+        ret.append(f'DEF: {self._DEF}')
+        ret.append('---------------')
+        return ret
+    def BodyPartName(self):
+        return 'Tail'
     def TakeAttack(self, player, incomingATK):
         delta = incomingATK - self._DEF
         if delta < -1:
             delta = -1
         self._hp -= delta
-        player._hp -= delta
+        player._poolHP -= delta

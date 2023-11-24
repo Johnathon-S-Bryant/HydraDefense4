@@ -1,3 +1,5 @@
+from colorama import Fore
+
 class PlayerHead:
     _player = None
     _name = 'default-head-name-string'
@@ -18,12 +20,14 @@ class PlayerHead:
         ret.append(f'{self._hp} / {self._maxHP}')
         ret.append('---------------')
         return ret
+    def BodyPartName(self):
+        return f'Head: {self._name}'
     def TakeAttack(self, player, incomingATK):
         delta = incomingATK - self._DEF
         if delta < 0:
             delta = 0
         self._hp -= delta
-        player._hp -= delta
+        player._poolHP -= delta
     def MenuLine(self):
         return f'{self._name} | HP: {self._hp} / {self._maxHP} | ATK: {self._ATK}'
     def NameStr(self):
