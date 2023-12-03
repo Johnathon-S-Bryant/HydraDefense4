@@ -19,5 +19,5 @@ class PlayerBody:
         if delta < 0:
             delta = 0
         self._hp -= delta
-        player._poolHP -= delta
+        player.PoolHP -= delta
 

@@ -20,4 +20,4 @@ class PlayerTail:
         if delta < -1:
             delta = -1
         self._hp -= delta
-        player._poolHP -= delta
+        player.PoolHP -= delta

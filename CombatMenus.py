@@ -27,10 +27,12 @@ class Menu:
     def ReadDisableSelection(self):
         validInput = False
         lBound = 1
-        uBound= len(self._selectableItems)
+        uBound = len(self._selectableItems)
         alreadySelectedItems = list(filter(lambda si: not si._enabled, self._selectableItems))
         while not validInput:
             i = input()
+            if i == "" or not i.isnumeric():
+                continue
             intI = int(i)
             if intI >= lBound and intI <= uBound:
                 currentSelectable = self._selectableItems[intI-1]

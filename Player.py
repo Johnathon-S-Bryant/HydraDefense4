@@ -3,12 +3,14 @@ from PlayerHead import *
 
 class Player:
     _name = 'default-player-name'
-    _poolHP = 134
+    PoolHP = -1#134
     _bodyParts = {}
     _combatEntityType = CombatEntityType.PLAYER
     def __init__(self, poolHP, bodyParts):
-        self._poolHP = poolHP
+        self.PoolHP = poolHP
+        self.MaxPoolHP = poolHP
         self._bodyParts = bodyParts
+
     def FullLRDisplayLines(self):
         ret = []
         for bp in self._bodyParts.values():
@@ -20,6 +22,9 @@ class Player:
             if type(bp) is PlayerHead:
                 ret.extend(bp.LRDisplayLines())
         return ret
+
+    def PoolDisplayLines(self):
+        return [f'PoolHP: {self.PoolHP} / {self.MaxPoolHP}']
 
     def ForceBodyPartTakeAttack(self, bodyPartID:int, attackerATK:int):
         self._bodyParts.get(bodyPartID).TakeAttack(self, attackerATK)

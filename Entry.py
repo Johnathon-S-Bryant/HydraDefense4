@@ -28,8 +28,8 @@ bodyParts = {
     7:leg3,
     8:leg4,
 }
-player:Player=Player(153, bodyParts)
-enemy1:Enemy = Enemy('Sword Goblin 1', 20, 9, 1, Fore.RED)
+player:Player = Player(50, bodyParts)
+enemy1:Enemy = Enemy('Left-Leg-Attacker', 20, 9, 1, Fore.RED)
 enemy2:Enemy = Enemy('Sword Goblin 2', 20, 9, 1, Fore.RED)
 enemy3:Enemy = Enemy('Sword Goblin 3', 20, 9, 1, Fore.RED)
 enemies=[enemy1, enemy2, enemy3]
@@ -47,24 +47,29 @@ cd = CombatDisplay("PLAYER", "ENEMY", 50, 50, Fore.GREEN, Fore.RED)
 print(Fore.WHITE, end='')
 
 while len(enemies) > 0:
-    cd.PrintMenuHeadsOnly(player, enemies)
+    cd.PrintFullMenu(player, enemies)
     headSelectables = [MenuItem(h) for h in heads]
-    selectHeadMenu=Menu("Select Head", headSelectables, Fore.GREEN)
+    selectHeadMenu = Menu("Select Head", headSelectables, Fore.GREEN)
     allEnemiesDead = False
+
+    #PlayerAttacks
     while not selectHeadMenu.IsExhausted() and not allEnemiesDead:
         selectHeadMenu.Display()
         sHead = selectHeadMenu.ReadDisableSelection()._val
         enemySelectables = [MenuItem(e) for e in enemies]
-        selectEnemyMenu=Menu("Select Enemy", enemySelectables, Fore.RED)
+        selectEnemyMenu = Menu("Select Enemy", enemySelectables, Fore.RED)
         selectEnemyMenu.Display()
         sEnemy = selectEnemyMenu.ReadDisableSelection()._val
         PlayerAttackEnemy(sHead, sEnemy)
         DiscardKilledEntities(enemies)
         allEnemiesDead = all([si._val._hp <= 0 for si in selectEnemyMenu._selectableItems])
+
+    #EnemyAttacks
     for e in enemies:
         keys = player._bodyParts.keys()
         targetBodyPartID = random.choice(list(keys))
         EnemyAttackPlayer(e, player, targetBodyPartID)
+
     RegenerateHeads(heads)
     print(Fore.WHITE)
 

@@ -20,7 +20,9 @@ class CombatDisplay:
         self._rColor = rColor
 
     def PrintFullMenu(self, player:Player, liveEnemies:list):
-        leftLines = player.FullLRDisplayLines()
+        leftLines = player.PoolDisplayLines()
+        leftLines.append('-'*15)
+        leftLines.extend(player.FullLRDisplayLines())
         rightLines = []
         for le in liveEnemies:
             rightLines.extend(le.LRDisplayLines())
@@ -28,6 +30,14 @@ class CombatDisplay:
 
     def PrintMenuHeadsOnly(self, player:Player, liveEnemies:list):
         leftLines = player.HeadCombatDisplayLines()
+        rightLines = []
+        for le in liveEnemies:
+            rightLines.extend(le.LRDisplayLines())
+        self.PrintLines(leftLines, rightLines)
+
+    def PrintMenuHeadsAndPool(self, player:Player, liveEnemies):
+        leftLines = player.HeadCombatDisplayLines()
+        leftLines.extend(player.PoolDisplayLines())
         rightLines = []
         for le in liveEnemies:
             rightLines.extend(le.LRDisplayLines())
