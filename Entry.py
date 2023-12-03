@@ -32,26 +32,8 @@ for z in range(1, numHeads+6):
         bodyParts[z]=legs[LegPos.BACK_RIGHT]
 
 player=Player(50, bodyParts)
-"""head1:PlayerHead = PlayerHead('Head 1', 17, 10, 1)
-head2:PlayerHead = PlayerHead('Head 2', 17, 9, 2)
-body:PlayerBody = PlayerBody(10, 10)
-tail:PlayerTail = PlayerTail(10, 5)
-leg1:PlayerLeg = PlayerLeg(LegPos.FRONT_LEFT, 10, 5)
-leg2:PlayerLeg = PlayerLeg(LegPos.FRONT_RIGHT, 10, 5)
-leg3:PlayerLeg = PlayerLeg(LegPos.BACK_LEFT, 10, 5)
-leg4:PlayerLeg = PlayerLeg(LegPos.BACK_RIGHT, 10, 5)
-heads:list=[head1, head2]
-bodyParts = {
-    1:head1,
-    2:head2,
-    3:body,
-    4:tail,
-    5:leg1,
-    6:leg2,
-    7:leg3,
-    8:leg4,
-}
-player:Player = Player(50, bodyParts)"""
+
+
 enemy1:Enemy = Enemy('Left-Leg-Attacker', 20, 9, 1, Fore.RED)
 enemy2:Enemy = Enemy('Sword Goblin 2', 20, 9, 1, Fore.RED)
 enemy3:Enemy = Enemy('Sword Goblin 3', 20, 9, 1, Fore.RED)

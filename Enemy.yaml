@@ -1,0 +1,12 @@
+enemy1:
+  name: 'TEnemy1'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1
+enemy2:
+  name: 'TEnemy2'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1

@@ -18,22 +18,22 @@ class PlayerFileDS:
 def ReadPlayerFile(relativeFilePath:str) -> PlayerFileDS:
     file = open(relativeFilePath)
     playerYAML = yaml.safe_load(file)
-    nameString = playerYAML['player']['name']
+    nameString = playerYAML['name']
     heads:list[PlayerHead] = []
-    yamlHeads= playerYAML['player']['bodyparts']['heads']
+    yamlHeads= playerYAML['bodyparts']['heads']
     for v in yamlHeads.values():
         heads.append(PlayerHead(v['name'], v['HP'], v['maxHP'], v['ATK'], v['DEF']))
-    tailYAML = playerYAML['player']['bodyparts']['tail']
+    tailYAML = playerYAML['bodyparts']['tail']
     playerTail = PlayerTail(tailYAML['HP'], tailYAML['maxHP'], tailYAML['DEF'])
-    bodyYAML = playerYAML['player']['bodyparts']['body']
+    bodyYAML = playerYAML['bodyparts']['body']
     playerBody = PlayerBody(bodyYAML['DEF'])
-    frontLeftLegYAML = playerYAML['player']['bodyparts']['front_left_leg']
+    frontLeftLegYAML = playerYAML['bodyparts']['front-left-leg']
     flLeg = PlayerLeg(LegPos.FRONT_LEFT, frontLeftLegYAML['HP'], frontLeftLegYAML['maxHP'], frontLeftLegYAML['DEF'])
-    frontRightLegYAML = playerYAML['player']['bodyparts']['front_right_leg']
+    frontRightLegYAML = playerYAML['bodyparts']['front-right-leg']
     frLeg = PlayerLeg(LegPos.FRONT_RIGHT,frontRightLegYAML['HP'], frontRightLegYAML['maxHP'], frontLeftLegYAML['DEF'])
-    backLeftLegYAML = playerYAML['player']['bodyparts']['back_left_leg']
+    backLeftLegYAML = playerYAML['bodyparts']['back-left-leg']
     blLeg = PlayerLeg(LegPos.BACK_LEFT, backLeftLegYAML['HP'], backLeftLegYAML['maxHP'], backLeftLegYAML['DEF'])
-    backRightLegYAML = playerYAML['player']['bodyparts']['back_right_leg']
+    backRightLegYAML = playerYAML['bodyparts']['back-right-leg']
     brLeg = PlayerLeg(LegPos.BACK_RIGHT, backRightLegYAML['HP'], backRightLegYAML['maxHP'], backRightLegYAML['DEF'])
     legs = {
         LegPos.FRONT_LEFT:flLeg,
