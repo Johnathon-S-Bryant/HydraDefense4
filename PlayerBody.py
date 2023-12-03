@@ -1,10 +1,6 @@
 class PlayerBody:
-    _hp = -1
-    _maxHP = -1
     _DEF = -1
-    def __init__(self, HP, DEF):
-        self._maxHP = HP
-        self._hp = HP
+    def __init__(self, DEF):
         self._DEF = DEF
     def LRDisplayLines(self):
         ret = []
@@ -18,6 +14,6 @@ class PlayerBody:
         delta = incomingATK - self._DEF
         if delta < 0:
             delta = 0
-        self._hp -= delta
+        #self._hp -= delta
         player.PoolHP -= delta
 

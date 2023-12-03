@@ -7,9 +7,32 @@ from PlayerTail import *
 from Player import *
 from Enemy import *
 from LegPos import *
+from PlayerFile import *
 import random
 
-head1:PlayerHead = PlayerHead('Head 1', 17, 10, 1)
+playerFile:PlayerFileDS = ReadPlayerFile('Player.yaml')
+heads:list[PlayerHead] = playerFile.Heads
+body:PlayerBody = playerFile.Body
+legs:dict[LegPos, PlayerLeg] = playerFile.Legs
+bodyParts = {}
+numHeads:int = len(heads)
+
+for z in range(1, numHeads+6):
+    if z <= numHeads:
+        bodyParts[z] = heads[z-1]
+    elif z == numHeads+1:
+        bodyParts[z] = body
+    elif z == numHeads+2:
+        bodyParts[z]=legs[LegPos.FRONT_LEFT]
+    elif z == numHeads+3:
+        bodyParts[z]=legs[LegPos.FRONT_RIGHT]
+    elif z == numHeads+4:
+        bodyParts[z]=legs[LegPos.BACK_LEFT]
+    elif z == numHeads+5:
+        bodyParts[z]=legs[LegPos.BACK_RIGHT]
+
+player=Player(50, bodyParts)
+"""head1:PlayerHead = PlayerHead('Head 1', 17, 10, 1)
 head2:PlayerHead = PlayerHead('Head 2', 17, 9, 2)
 body:PlayerBody = PlayerBody(10, 10)
 tail:PlayerTail = PlayerTail(10, 5)
@@ -28,19 +51,20 @@ bodyParts = {
     7:leg3,
     8:leg4,
 }
-player:Player = Player(50, bodyParts)
+player:Player = Player(50, bodyParts)"""
 enemy1:Enemy = Enemy('Left-Leg-Attacker', 20, 9, 1, Fore.RED)
 enemy2:Enemy = Enemy('Sword Goblin 2', 20, 9, 1, Fore.RED)
 enemy3:Enemy = Enemy('Sword Goblin 3', 20, 9, 1, Fore.RED)
 enemies=[enemy1, enemy2, enemy3]
+#enemies=ReadInEnemies()
+
 
 lLines = []
 lLines.extend(player.FullLRDisplayLines())
 
 rLines = []
-rLines.extend(enemy1.LRDisplayLines())
-rLines.extend(enemy2.LRDisplayLines())
-rLines.extend(enemy3.LRDisplayLines())
+for e in enemies:
+    rLines.extend(e.LRDisplayLines())
 
 cd = CombatDisplay("PLAYER", "ENEMY", 50, 50, Fore.GREEN, Fore.RED)
 

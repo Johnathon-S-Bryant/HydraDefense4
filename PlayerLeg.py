@@ -5,10 +5,10 @@ class PlayerLeg:
     _hp = -1
     _maxHP = -1
     _DEF = -1
-    def __init__(self, pos:LegPos, HP, DEF):
+    def __init__(self, pos:LegPos, HP, maxHP, DEF):
         self._legPos = pos
-        self._maxHP = HP
         self._hp = HP
+        self._maxHP = maxHP
         self._DEF = DEF
     def LRDisplayLines(self):
         ret = []

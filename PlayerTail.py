@@ -2,9 +2,9 @@ class PlayerTail:
     _hp = -2
     _maxHP = -2
     _DEF = -2
-    def __init__(self, HP, DEF):
-        self._maxHP = HP
+    def __init__(self, HP, maxHP, DEF):
         self._hp = HP
+        self._maxHP = maxHP
         self._DEF = DEF
     def LRDisplayLines(self):
         ret = []

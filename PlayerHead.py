@@ -8,9 +8,9 @@ class PlayerHead:
     _ATK = -1
     _DEF = -1
     _menuColorLine = Fore.GREEN
-    def __init__(self,  name,  maxHP, ATK, DEF):
+    def __init__(self,  name, HP, maxHP, ATK, DEF):
         self._name = name
-        self._hp = maxHP
+        self._hp = HP
         self._maxHP = maxHP
         self._ATK = ATK
         self._DEF = DEF
