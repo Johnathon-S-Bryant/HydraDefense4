@@ -5,20 +5,46 @@ from PlayerBody import *
 from PlayerTail import *
 from LegPos import *
 from PlayerLeg import *
+from Player import *
 
 class PlayerFileDS:
-    def __init__(self, nameString:str, heads:list[PlayerHead], tail:PlayerTail, body:PlayerBody, legs:dict[LegPos, PlayerLeg]):
+    def __init__(self, nameString:str, poolHP:int, heads:list[PlayerHead], tail:PlayerTail, body:PlayerBody, legs:dict[LegPos, PlayerLeg]):
         self.NameString = nameString
+        self.PoolHP:int = poolHP
         self.Heads:list[PlayerHead] = heads
         self.Tail:PlayerTail = tail
         self.Body:PlayerBody = body
         self.Legs:dict[LegPos, PlayerLeg] = legs
+
+    def GenPlayerDS(self) -> Player:
+        heads: list[PlayerHead] = self.Heads
+        body: PlayerBody = self.Body
+        legs: dict[LegPos, PlayerLeg] = self.Legs
+        bodyParts = {}
+        numHeads: int = len(heads)
+
+        for z in range(1, numHeads + 6):
+            if z <= numHeads:
+                bodyParts[z] = heads[z - 1]
+            elif z == numHeads + 1:
+                bodyParts[z] = body
+            elif z == numHeads + 2:
+                bodyParts[z] = legs[LegPos.FRONT_LEFT]
+            elif z == numHeads + 3:
+                bodyParts[z] = legs[LegPos.FRONT_RIGHT]
+            elif z == numHeads + 4:
+                bodyParts[z] = legs[LegPos.BACK_LEFT]
+            elif z == numHeads + 5:
+                bodyParts[z] = legs[LegPos.BACK_RIGHT]
+
+        return Player(self.PoolHP, bodyParts)
 
 
 def ReadPlayerFile(relativeFilePath:str) -> PlayerFileDS:
     file = open(relativeFilePath)
     playerYAML = yaml.safe_load(file)
     nameString = playerYAML['name']
+    poolHP = playerYAML['poolHP']
     heads:list[PlayerHead] = []
     yamlHeads= playerYAML['bodyparts']['heads']
     for v in yamlHeads.values():
@@ -41,4 +67,4 @@ def ReadPlayerFile(relativeFilePath:str) -> PlayerFileDS:
         LegPos.BACK_LEFT:blLeg,
         LegPos.BACK_RIGHT:brLeg
     }
-    return PlayerFileDS(nameString, heads, playerTail, playerBody, legs)
+    return PlayerFileDS(nameString, poolHP, heads, playerTail, playerBody, legs)

@@ -6,9 +6,9 @@ def PlayerAttackEnemy(attacker, defender):
     print(f'{Fore.WHITE} {attacker._name} attacks {defender._name} for {attackerATK}')
     defender.TakeAttack(attackerATK)
 
-def EnemyAttackPlayer(attacker, player, bodyPartID):
+def EnemyAttackPlayer(attacker, player, bodyPart): #, bodyPartID):
     attackerATK = attacker._ATK
-    bodyPart = player._bodyParts.get(bodyPartID)
+    #bodyPart = player._bodyParts.get(bodyPartID)
     print(f'{Fore.WHITE} {attacker._name} attacks {bodyPart.BodyPartName()} for {attackerATK}')
     bodyPart.TakeAttack(player, attackerATK)
     #player.ForceBodyPartTakeAttack(bodyPartID, attackerATK)

@@ -1,12 +1,49 @@
 enemy1:
-  name: 'TEnemy1'
+  name: 'THeadAttacker1'
   HP: 20
   maxHP: 20
   ATK: 9
   DEF: 1
+  AI: '0|EVEN-ANY-HEAD'
 enemy2:
-  name: 'TEnemy2'
+  name: 'THeadAttacker2'
   HP: 20
   maxHP: 20
   ATK: 9
   DEF: 1
+  AI: '0|EVEN-ANY-HEAD'
+enemy3:
+  name: 'THeadAttacker3'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1
+  AI: '0|EVEN-ANY-HEAD'
+enemy4:
+  name: 'THeadAttacker4'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1
+  AI: '0|EVEN-ANY-HEAD'
+enemy5:
+  name: 'TLegAttacker1'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1
+  AI: '0|EVEN-ANY-HEAD'
+enemy6:
+  name: 'TLegAttacker2'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1
+  AI: '0|EVEN-ANY-HEAD'
+enemy7:
+  name: 'TLegAttacker4'
+  HP: 20
+  maxHP: 20
+  ATK: 9
+  DEF: 1
+  AI: '0|EVEN-ANY-HEAD'

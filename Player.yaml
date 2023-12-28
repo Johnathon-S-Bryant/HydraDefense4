@@ -1,4 +1,5 @@
 name: 'Hydry'
+poolHP: 50
 bodyparts:
   heads:
     head1:

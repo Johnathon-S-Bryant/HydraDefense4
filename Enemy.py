@@ -1,5 +1,6 @@
 from colorama import Fore
 from CombatEntityType import *
+from AIAgent import AIAgent
 
 class Enemy:
     _name = 'default-enemy-name-string'
@@ -7,15 +8,19 @@ class Enemy:
     _maxHP = _hp
     _ATK = -1
     _DEF = -1
+    #_AIAgent = 'ERROR-AI-Agent-Not-set'
     _menuLineColor = Fore.MAGENTA
     _combatEntityType = CombatEntityType.ENEMY
-    def __init__(self, name,  maxHP, ATK, DEF, menuLineColor):
-        self._name = name
-        self._hp = maxHP
-        self._maxHP = maxHP
-        self._ATK = ATK
-        self._DEF = DEF
-        self._menuLineColor = menuLineColor
+
+    def __init__(self, name:str, HP:int, maxHP:int, ATK:int, DEF:int, aiAgent:AIAgent,  menuLineColor:str):
+        self._name:str = name
+        self._hp:int = HP
+        self._maxHP:int = maxHP
+        self._ATK:int = ATK
+        self._DEF:int = DEF
+        self._AIAgent:AIAgent = aiAgent
+        self._menuLineColor:str = menuLineColor
+
     def LRDisplayLines(self):
         ret = []
         ret.append(self._name)

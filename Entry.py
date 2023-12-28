@@ -8,10 +8,12 @@ from Player import *
 from Enemy import *
 from LegPos import *
 from PlayerFile import *
+from EnemyFile import *
 import random
+from EnemyAttackWeights import *
 
-playerFile:PlayerFileDS = ReadPlayerFile('Player.yaml')
-heads:list[PlayerHead] = playerFile.Heads
+player:Player = ReadPlayerFile('Player.yaml').GenPlayerDS()
+"""heads:list[PlayerHead] = playerFile.Heads
 body:PlayerBody = playerFile.Body
 legs:dict[LegPos, PlayerLeg] = playerFile.Legs
 bodyParts = {}
@@ -31,15 +33,10 @@ for z in range(1, numHeads+6):
     elif z == numHeads+5:
         bodyParts[z]=legs[LegPos.BACK_RIGHT]
 
-player=Player(50, bodyParts)
+player=Player(50, bodyParts)"""
 
 
-enemy1:Enemy = Enemy('Left-Leg-Attacker', 20, 9, 1, Fore.RED)
-enemy2:Enemy = Enemy('Sword Goblin 2', 20, 9, 1, Fore.RED)
-enemy3:Enemy = Enemy('Sword Goblin 3', 20, 9, 1, Fore.RED)
-enemies=[enemy1, enemy2, enemy3]
-#enemies=ReadInEnemies()
-
+enemies = ReadEnemyFile('Enemy.yaml')
 
 lLines = []
 lLines.extend(player.FullLRDisplayLines())
@@ -52,8 +49,9 @@ cd = CombatDisplay("PLAYER", "ENEMY", 50, 50, Fore.GREEN, Fore.RED)
 
 print(Fore.WHITE, end='')
 
-while len(enemies) > 0:
+while len(enemies) > 0 and player.PoolHP > 0:
     cd.PrintFullMenu(player, enemies)
+    heads:list[PlayerHead] = player.GetHeads()
     headSelectables = [MenuItem(h) for h in heads]
     selectHeadMenu = Menu("Select Head", headSelectables, Fore.GREEN)
     allEnemiesDead = False
@@ -72,12 +70,17 @@ while len(enemies) > 0:
 
     #EnemyAttacks
     for e in enemies:
-        keys = player._bodyParts.keys()
-        targetBodyPartID = random.choice(list(keys))
-        EnemyAttackPlayer(e, player, targetBodyPartID)
+        targettedBodyPart = e._AIAgent.TargetSelectionFunction(player)
+        EnemyAttackPlayer(e, player, targettedBodyPart)
 
     RegenerateHeads(heads)
     print(Fore.WHITE)
 
-print(Fore.GREEN + f'>----------You won combat!---------<')
-print(Fore.WHITE)
+
+#Combat over
+if player.PoolHP > 0:
+    print(Fore.GREEN + f'>----------You won combat!---------<')
+    print(Fore.WHITE)
+else:
+    print(Fore.RED + f'>----------Game Over!---------<')
+    print(Fore.WHITE)
