@@ -13,29 +13,6 @@ import random
 from EnemyAttackWeights import *
 
 player:Player = ReadPlayerFile('Player.yaml').GenPlayerDS()
-"""heads:list[PlayerHead] = playerFile.Heads
-body:PlayerBody = playerFile.Body
-legs:dict[LegPos, PlayerLeg] = playerFile.Legs
-bodyParts = {}
-numHeads:int = len(heads)
-
-for z in range(1, numHeads+6):
-    if z <= numHeads:
-        bodyParts[z] = heads[z-1]
-    elif z == numHeads+1:
-        bodyParts[z] = body
-    elif z == numHeads+2:
-        bodyParts[z]=legs[LegPos.FRONT_LEFT]
-    elif z == numHeads+3:
-        bodyParts[z]=legs[LegPos.FRONT_RIGHT]
-    elif z == numHeads+4:
-        bodyParts[z]=legs[LegPos.BACK_LEFT]
-    elif z == numHeads+5:
-        bodyParts[z]=legs[LegPos.BACK_RIGHT]
-
-player=Player(50, bodyParts)"""
-
-
 enemies = ReadEnemyFile('Enemy.yaml')
 
 lLines = []
@@ -66,14 +43,14 @@ while len(enemies) > 0 and player.PoolHP > 0:
         sEnemy = selectEnemyMenu.ReadDisableSelection()._val
         PlayerAttackEnemy(sHead, sEnemy)
         DiscardKilledEntities(enemies)
-        allEnemiesDead = all([si._val._hp <= 0 for si in selectEnemyMenu._selectableItems])
+        allEnemiesDead = all([si._val.HP <= 0 for si in selectEnemyMenu._selectableItems])
 
     #EnemyAttacks
     for e in enemies:
-        targettedBodyPart = e._AIAgent.TargetSelectionFunction(player)
+        targettedBodyPart = e.AIAgent.TargetSelectionFunction(player)
         EnemyAttackPlayer(e, player, targettedBodyPart)
+        RegenerateHeads(heads, player)
 
-    RegenerateHeads(heads)
     print(Fore.WHITE)
 
 

@@ -8,9 +8,8 @@ def ReadEnemyFile(relativeFilePath:str) -> list[Enemy]:
     enemyYAML= yaml.safe_load(file)
     enemies:list[Enemy] = []
     for k, v in enemyYAML.items():
-        name:str = k
-        aiAgent:AIAgent = AIAgent(enemyYAML[name]['AI'])
-        enemy:Enemy = Enemy(name, enemyYAML[name]['HP'], enemyYAML[name]['maxHP'], enemyYAML[name]['ATK'],
-                            enemyYAML[name]['DEF'], aiAgent, Fore.RED)
+        aiAgent:AIAgent = AIAgent(enemyYAML[k]['AI'])
+        enemy:Enemy = Enemy(enemyYAML[k]['name'], enemyYAML[k]['HP'], enemyYAML[k]['maxHP'], enemyYAML[k]['ATK'],
+                            enemyYAML[k]['DEF'], aiAgent, Fore.RED)
         enemies.append(enemy)
     return enemies
